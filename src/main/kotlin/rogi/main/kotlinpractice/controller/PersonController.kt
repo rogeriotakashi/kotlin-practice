@@ -1,9 +1,8 @@
 package rogi.main.kotlinpractice.controller
 
 import org.slf4j.LoggerFactory
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.http.HttpStatus
+import org.springframework.web.bind.annotation.*
 import rogi.main.kotlinpractice.data.Person
 import rogi.main.kotlinpractice.service.PersonService
 
@@ -22,5 +21,12 @@ class PersonController (val personService: PersonService) {
     fun person(@PathVariable("id") id: Int): Person? {
         logger.info("Find person called for id {}", id)
         return personService.findPerson(id)
+    }
+
+    @PostMapping("/person")
+    fun createPerson(@RequestBody person: Person): HttpStatus {
+        logger.info("Creating new person named as {}", person.name)
+        personService.createPerson(person)
+        return HttpStatus.OK
     }
 }

@@ -22,7 +22,7 @@ class PersonControllerTest {
 
         assertThat(result).isNotNull
         assertThat(result?.statusCode).isEqualTo(HttpStatus.OK)
-        assertThat(result?.body).hasSize(3)
+        assertThat(result?.body).hasSize(9)
     }
 
     @Test
@@ -32,6 +32,16 @@ class PersonControllerTest {
         assertThat(result).isNotNull
         assertThat(result?.statusCode).isEqualTo(HttpStatus.OK)
         assertThat(result?.body).isEqualTo(Person(1, "Person A", 18, "User"))
+    }
+
+    @Test
+    fun shouldCreatePerson(){
+        val newPerson = Person(9999, "New Person", 99, "User")
+        val result = testRestTemplate.postForEntity("/person", newPerson, HttpStatus::class.java)
+        val result2 = testRestTemplate.getForEntity("/person/9999", Person::class.java)
+
+        assertThat(result?.statusCode).isEqualTo(HttpStatus.OK)
+        assertThat(result2?.body).isEqualTo(Person(9999, "New Person", 99, "User"))
     }
 
 }

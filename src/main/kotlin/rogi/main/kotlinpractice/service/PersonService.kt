@@ -14,4 +14,8 @@ class PersonService (val repository: PersonRepository) {
         return repository.all()
             .firstOrNull { person -> person.id == id }
     }
+
+    fun createPerson(person: Person) {
+        repository.insertPerson(person)
+    }
 }
