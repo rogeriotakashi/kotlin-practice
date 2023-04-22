@@ -2,18 +2,16 @@ package rogi.main.kotlinpractice.service
 
 import org.springframework.stereotype.Service
 import rogi.main.kotlinpractice.data.Person
+import rogi.main.kotlinpractice.repository.PersonRepository
 
 @Service
-class PersonService {
+class PersonService (val repository: PersonRepository) {
     fun allPersons(): List<Person> {
-        return listOf(
-            Person(1, "Person A", 18, "User"),
-            Person(2, "Person B", 19, "User"),
-            Person(3, "Person C", 20, "User")
-        )
+        return repository.all()
     }
 
-    fun findPerson(): Person {
-        return Person(1, "Person A", 18, "User")
+    fun findPerson(id: Int): Person? {
+        return repository.all()
+            .firstOrNull { person -> person.id == id }
     }
 }

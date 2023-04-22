@@ -19,8 +19,8 @@ class PersonController (val personService: PersonService) {
     }
 
     @GetMapping("/person/{id}")
-    fun person(@PathVariable("id") id: String): Person {
+    fun person(@PathVariable("id") id: Int): Person? {
         logger.info("Find person called for id {}", id)
-        return personService.findPerson()
+        return personService.findPerson(id)
     }
 }
