@@ -16,12 +16,21 @@ class HelloControllerTest {
     lateinit var testRestTemplate: TestRestTemplate
 
     @Test
-    fun whenCalled_shouldReturnHello() {
+    fun whenCalled_shouldReturnHelloService() {
         val result = testRestTemplate.getForEntity("/hello", String::class.java)
 
         assertNotNull(result)
         assertEquals(result?.statusCode, HttpStatus.OK)
-        assertEquals(result?.body, "hello world")
+        assertEquals(result?.body, "hello service")
+    }
+
+    @Test
+    fun whenCalled_shouldReturnJSON(){
+        val result = testRestTemplate.getForEntity("/hello-dto", HelloDto::class.java)
+
+        assertNotNull(result)
+        assertEquals(result?.statusCode, HttpStatus.OK)
+        assertEquals(result?.body, HelloDto("Hello from the dto"))
     }
 
 }
