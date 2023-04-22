@@ -27,11 +27,11 @@ class PersonControllerTest {
 
     @Test
     fun shouldReturnPerson(){
-        val result = testRestTemplate.getForEntity("/person", Person::class.java)
+        val result = testRestTemplate.getForEntity("/person/1", Person::class.java)
 
         assertThat(result).isNotNull
         assertThat(result?.statusCode).isEqualTo(HttpStatus.OK)
-        assertThat(result?.body).isEqualTo(Person("Person A", 18, "User"))
+        assertThat(result?.body).isEqualTo(Person(1, "Person A", 18, "User"))
     }
 
 }
