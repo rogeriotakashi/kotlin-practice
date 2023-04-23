@@ -18,4 +18,9 @@ class PersonService (val repository: PersonRepository) {
     fun createPerson(person: Person) {
         repository.insertPerson(person)
     }
+
+    fun findPersonByNameAndAge(name: String, age: Int): Person {
+        return repository.all()
+            .first { person -> person.name == name && person.age == age }
+    }
 }

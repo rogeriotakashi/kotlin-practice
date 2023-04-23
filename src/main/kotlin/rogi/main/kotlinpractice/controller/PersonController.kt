@@ -18,9 +18,18 @@ class PersonController (val personService: PersonService) {
     }
 
     @GetMapping("/person/{id}")
-    fun person(@PathVariable("id") id: Int): Person? {
+    fun person(@PathVariable("id") id: Int): Person {
         logger.info("Find person called for id {}", id)
-        return personService.findPerson(id)
+        return personService.findPerson(id) ?: run {
+            logger.info("Person not found!")
+            Person(id = 9999, name = "Not found", age = 0, role = "NOT_FOUND")
+        }
+    }
+
+    @GetMapping("/person")
+    fun byNameAndAge(@RequestParam("name") name: String, @RequestParam("age") age: Int): Person? {
+        logger.info("Find person named as {} with age {}", name, age)
+        return personService.findPersonByNameAndAge(name, age)
     }
 
     @PostMapping("/person")
